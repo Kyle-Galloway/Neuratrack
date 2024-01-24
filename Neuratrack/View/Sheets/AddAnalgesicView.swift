@@ -6,10 +6,32 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddAnalgesicView: View {
+    
+    @Environment(\.dismiss) var dismissSheet
+    @Query var medications: [Medication]
+    @State var analgesiaSelection: Medication? = nil
+    @State var timeAnalgesicTaken: Date = Date()
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack
+        {
+            Form
+            {
+                Picker("Medication",selection: $analgesiaSelection)
+                {
+                    ForEach(medications){med in
+                        Text(med.name)}
+                }
+                DatePicker("Time Taken", selection: $timeAnalgesicTaken)
+                Button("Add")
+                {
+                    print("Save to headache event")
+                    dismissSheet()
+                }
+            }.navigationTitle("Add Analgesic")
+        }
     }
 }
 

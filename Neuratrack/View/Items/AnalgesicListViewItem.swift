@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct AnalgesicListViewItem: View {
+    @State var analgesic: Medication
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack{
+            Text("\(analgesic.name)")
+            Text("\(analgesic.dosage)")
+            Text("\(analgesic.timeTaken!.formatted())")
+        }
     }
 }
 
 #Preview {
-    AnalgesicListViewItem()
+    
+    AnalgesicListViewItem(analgesic: Medication(name: "Test Med", dosage: "Test Dose", type: .Analgesic, isActivePrescription: false, prescriptionStarted: nil, prescriptionStopped: nil, timeTaken: Date()))
 }

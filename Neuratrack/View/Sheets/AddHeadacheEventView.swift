@@ -8,8 +8,43 @@
 import SwiftUI
 
 struct AddHeadacheEventView: View {
+    
+    @Environment(\.dismiss) var dismissSheet
+    
+    @State var isAddAnalgesiaSheetPresented: Bool = false
+    
+    @State var eventNotes: String = ""
+    
+    @State var headacheTime: Date = Date()
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack
+        {
+            Form
+            {
+                DatePicker("Date", selection: $headacheTime).navigationBarTitleDisplayMode(.inline)
+                Section
+                {
+                    List{}
+                } header: {Text("Analgesia")}
+                
+                Button("Add Analgesic")
+                {
+                    isAddAnalgesiaSheetPresented.toggle()
+                }
+                Section
+                {
+                    TextEditor(text: $eventNotes)
+                } header:{Text("Notes")}
+
+                Button("Add Headache")
+                {
+                    dismissSheet()
+                }
+                
+            }.navigationTitle("Add Headache").sheet(isPresented: $isAddAnalgesiaSheetPresented) {
+                AddAnalgesicView()
+            }
+        }
     }
 }
 

@@ -20,15 +20,22 @@ struct MedicationManagementView: View
         med.type.rawValue == MedicationType.Other.rawValue}) var others: [Medication]
     */
     
+    /*
     @Query var medications: [Medication]
     @Query var analgesics: [Medication]
     @Query var prophylactics: [Medication]
-    @Query var others: [Medication]
+    @Query var others: [Medication]*/
+    
+    var medications: [Medication]
+    var analgesics: [Medication]
+    var prophylactics: [Medication]
+    var others: [Medication]
     
     @State private var presentAddMedicationSheet: Bool = false
     
     init()
     {
+        /*
         let analgesicFilter = MedicationType.Analgesic.rawValue
         _analgesics = Query(filter: #Predicate<Medication>{med in
             med.type.rawValue == analgesicFilter})
@@ -39,7 +46,11 @@ struct MedicationManagementView: View
         
         let otherFilter = MedicationType.Other.rawValue
         _others = Query(filter: #Predicate<Medication>{med in
-            med.type.rawValue == otherFilter})
+            med.type.rawValue == otherFilter})*/
+        medications = []
+        analgesics = []
+        prophylactics = []
+        others = []
     }
     
     
@@ -49,6 +60,7 @@ struct MedicationManagementView: View
         {
             List
             {
+                
                 Section
                 {
                     List
@@ -106,22 +118,22 @@ struct MedicationManagementView: View
                 {
                     Text("Other Medications")
                 }
-            }.navigationTitle("Medications")
+                /**/
+            }.navigationTitle("Manage Medications")
                 .toolbar
-                {
-                    ToolbarItem(placement: .topBarTrailing)
-                    {
-                        Button("Add Medication", systemImage: "plus")
-                        {
-                            presentAddMedicationSheet.toggle()
-                            print("Show add medication screen")
-                        }
-                    }
-                }.navigationBarTitleDisplayMode(.inline).listStyle(.insetGrouped)
-                    .sheet(isPresented: $presentAddMedicationSheet)
             {
-                AddMedicationView()
-            }
+                ToolbarItem(placement: .topBarTrailing)
+                {
+                    Button("Add Medication", systemImage: "plus")
+                    {
+                        presentAddMedicationSheet.toggle()
+                        print("Show add medication screen")
+                    }
+                }
+            }.navigationBarTitleDisplayMode(.inline).listStyle(.insetGrouped)
+                .sheet(isPresented: $presentAddMedicationSheet){
+                    AddMedicationView()
+                }
         }
     }
 }

@@ -14,6 +14,25 @@
 		1D7061B92B55E18F0098AB76 /* NeuratrackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7061B82B55E18F0098AB76 /* NeuratrackTests.swift */; };
 		1D7061C32B55E18F0098AB76 /* NeuratrackUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7061C22B55E18F0098AB76 /* NeuratrackUITests.swift */; };
 		1D7061C52B55E18F0098AB76 /* NeuratrackUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7061C42B55E18F0098AB76 /* NeuratrackUITestsLaunchTests.swift */; };
+		1D7061D42B55E4D00098AB76 /* HeadacheEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7061D32B55E4D00098AB76 /* HeadacheEvent.swift */; };
+		1D7061D62B55E5600098AB76 /* Medication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7061D52B55E5600098AB76 /* Medication.swift */; };
+		1D7061D82B55E6B40098AB76 /* MedicationManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7061D72B55E6B40098AB76 /* MedicationManagementView.swift */; };
+		1D7061DA2B55F9F90098AB76 /* AddMedicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7061D92B55F9F90098AB76 /* AddMedicationView.swift */; };
+		1D7061DD2B56C1200098AB76 /* AddHeadacheEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7061DC2B56C1200098AB76 /* AddHeadacheEventView.swift */; };
+		1D7061DF2B56C58A0098AB76 /* AddAnalgesicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7061DE2B56C58A0098AB76 /* AddAnalgesicView.swift */; };
+		1D7061E22B56D1DF0098AB76 /* HeadachesLoggerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7061E12B56D1DF0098AB76 /* HeadachesLoggerView.swift */; };
+		1D7061E42B57115F0098AB76 /* ImportHeadachesFromCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7061E32B57115F0098AB76 /* ImportHeadachesFromCalendarView.swift */; };
+		1D7061E62B57132D0098AB76 /* EventKitEventImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7061E52B57132D0098AB76 /* EventKitEventImporter.swift */; };
+		1DCAFC122B59C418000A99BD /* EditHeadacheEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCAFC112B59C418000A99BD /* EditHeadacheEventView.swift */; };
+		1DCAFC152B59D888000A99BD /* AnalgesicListViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCAFC142B59D888000A99BD /* AnalgesicListViewItem.swift */; };
+		1DCAFC172B5B3749000A99BD /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCAFC162B5B3749000A99BD /* StatisticsView.swift */; };
+		1DCAFC192B5B37E1000A99BD /* StatisticsGridViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCAFC182B5B37E1000A99BD /* StatisticsGridViewItem.swift */; };
+		1DCAFC1C2B5B3A45000A99BD /* SimpleEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCAFC1B2B5B3A45000A99BD /* SimpleEntry.swift */; };
+		1DCAFC202B5B3AC1000A99BD /* SimpleWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCAFC1F2B5B3AC1000A99BD /* SimpleWidgetEntryView.swift */; };
+		1DCAFC232B5C9ED1000A99BD /* ChartWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCAFC212B5C9ED1000A99BD /* ChartWidgetEntryView.swift */; };
+		1DCAFC242B5C9ED1000A99BD /* ChartWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCAFC222B5C9ED1000A99BD /* ChartWidgetEntry.swift */; };
+		1DCAFC262B604D6C000A99BD /* ExportDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCAFC252B604D6C000A99BD /* ExportDataView.swift */; };
+		1DCAFC282B6066EF000A99BD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCAFC272B6066EF000A99BD /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +63,26 @@
 		1D7061BE2B55E18F0098AB76 /* NeuratrackUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeuratrackUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D7061C22B55E18F0098AB76 /* NeuratrackUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuratrackUITests.swift; sourceTree = "<group>"; };
 		1D7061C42B55E18F0098AB76 /* NeuratrackUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuratrackUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1D7061D32B55E4D00098AB76 /* HeadacheEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadacheEvent.swift; sourceTree = "<group>"; };
+		1D7061D52B55E5600098AB76 /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
+		1D7061D72B55E6B40098AB76 /* MedicationManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationManagementView.swift; sourceTree = "<group>"; };
+		1D7061D92B55F9F90098AB76 /* AddMedicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMedicationView.swift; sourceTree = "<group>"; };
+		1D7061DC2B56C1200098AB76 /* AddHeadacheEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHeadacheEventView.swift; sourceTree = "<group>"; };
+		1D7061DE2B56C58A0098AB76 /* AddAnalgesicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnalgesicView.swift; sourceTree = "<group>"; };
+		1D7061E12B56D1DF0098AB76 /* HeadachesLoggerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadachesLoggerView.swift; sourceTree = "<group>"; };
+		1D7061E32B57115F0098AB76 /* ImportHeadachesFromCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportHeadachesFromCalendarView.swift; sourceTree = "<group>"; };
+		1D7061E52B57132D0098AB76 /* EventKitEventImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventKitEventImporter.swift; sourceTree = "<group>"; };
+		1D7061E72B5751FF0098AB76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1DCAFC112B59C418000A99BD /* EditHeadacheEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHeadacheEventView.swift; sourceTree = "<group>"; };
+		1DCAFC142B59D888000A99BD /* AnalgesicListViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalgesicListViewItem.swift; sourceTree = "<group>"; };
+		1DCAFC162B5B3749000A99BD /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		1DCAFC182B5B37E1000A99BD /* StatisticsGridViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsGridViewItem.swift; sourceTree = "<group>"; };
+		1DCAFC1B2B5B3A45000A99BD /* SimpleEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleEntry.swift; sourceTree = "<group>"; };
+		1DCAFC1F2B5B3AC1000A99BD /* SimpleWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleWidgetEntryView.swift; sourceTree = "<group>"; };
+		1DCAFC212B5C9ED1000A99BD /* ChartWidgetEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartWidgetEntryView.swift; sourceTree = "<group>"; };
+		1DCAFC222B5C9ED1000A99BD /* ChartWidgetEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartWidgetEntry.swift; sourceTree = "<group>"; };
+		1DCAFC252B604D6C000A99BD /* ExportDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDataView.swift; sourceTree = "<group>"; };
+		1DCAFC272B6066EF000A99BD /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,10 +133,14 @@
 		1D7061A62B55E18E0098AB76 /* Neuratrack */ = {
 			isa = PBXGroup;
 			children = (
+				1D7061E72B5751FF0098AB76 /* Info.plist */,
+				1D7061D22B55E4200098AB76 /* View */,
+				1D7061D12B55E40D0098AB76 /* Model */,
 				1D7061A72B55E18E0098AB76 /* NeuratrackApp.swift */,
 				1D7061A92B55E18E0098AB76 /* ContentView.swift */,
 				1D7061AB2B55E18F0098AB76 /* Assets.xcassets */,
 				1D7061AD2B55E18F0098AB76 /* Preview Content */,
+				1D7061E52B57132D0098AB76 /* EventKitEventImporter.swift */,
 			);
 			path = Neuratrack;
 			sourceTree = "<group>";
@@ -125,6 +168,78 @@
 				1D7061C42B55E18F0098AB76 /* NeuratrackUITestsLaunchTests.swift */,
 			);
 			path = NeuratrackUITests;
+			sourceTree = "<group>";
+		};
+		1D7061D12B55E40D0098AB76 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1D7061D32B55E4D00098AB76 /* HeadacheEvent.swift */,
+				1D7061D52B55E5600098AB76 /* Medication.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1D7061D22B55E4200098AB76 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1DCAFC1A2B5B3A1C000A99BD /* Widget View test */,
+				1DCAFC132B59D872000A99BD /* Items */,
+				1D7061E02B56D1AF0098AB76 /* Pages */,
+				1D7061DB2B56C0F40098AB76 /* Sheets */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1D7061DB2B56C0F40098AB76 /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				1D7061D92B55F9F90098AB76 /* AddMedicationView.swift */,
+				1D7061DC2B56C1200098AB76 /* AddHeadacheEventView.swift */,
+				1D7061DE2B56C58A0098AB76 /* AddAnalgesicView.swift */,
+				1DCAFC112B59C418000A99BD /* EditHeadacheEventView.swift */,
+			);
+			path = Sheets;
+			sourceTree = "<group>";
+		};
+		1D7061E02B56D1AF0098AB76 /* Pages */ = {
+			isa = PBXGroup;
+			children = (
+				1DCAFC292B618B01000A99BD /* DataManagement */,
+				1D7061D72B55E6B40098AB76 /* MedicationManagementView.swift */,
+				1D7061E12B56D1DF0098AB76 /* HeadachesLoggerView.swift */,
+				1DCAFC162B5B3749000A99BD /* StatisticsView.swift */,
+				1DCAFC272B6066EF000A99BD /* SettingsView.swift */,
+			);
+			path = Pages;
+			sourceTree = "<group>";
+		};
+		1DCAFC132B59D872000A99BD /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				1DCAFC142B59D888000A99BD /* AnalgesicListViewItem.swift */,
+				1DCAFC182B5B37E1000A99BD /* StatisticsGridViewItem.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+		1DCAFC1A2B5B3A1C000A99BD /* Widget View test */ = {
+			isa = PBXGroup;
+			children = (
+				1DCAFC222B5C9ED1000A99BD /* ChartWidgetEntry.swift */,
+				1DCAFC212B5C9ED1000A99BD /* ChartWidgetEntryView.swift */,
+				1DCAFC1B2B5B3A45000A99BD /* SimpleEntry.swift */,
+				1DCAFC1F2B5B3AC1000A99BD /* SimpleWidgetEntryView.swift */,
+			);
+			path = "Widget View test";
+			sourceTree = "<group>";
+		};
+		1DCAFC292B618B01000A99BD /* DataManagement */ = {
+			isa = PBXGroup;
+			children = (
+				1D7061E32B57115F0098AB76 /* ImportHeadachesFromCalendarView.swift */,
+				1DCAFC252B604D6C000A99BD /* ExportDataView.swift */,
+			);
+			path = DataManagement;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +372,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DCAFC282B6066EF000A99BD /* SettingsView.swift in Sources */,
+				1DCAFC152B59D888000A99BD /* AnalgesicListViewItem.swift in Sources */,
+				1DCAFC122B59C418000A99BD /* EditHeadacheEventView.swift in Sources */,
+				1DCAFC242B5C9ED1000A99BD /* ChartWidgetEntry.swift in Sources */,
+				1DCAFC192B5B37E1000A99BD /* StatisticsGridViewItem.swift in Sources */,
+				1D7061E22B56D1DF0098AB76 /* HeadachesLoggerView.swift in Sources */,
+				1DCAFC172B5B3749000A99BD /* StatisticsView.swift in Sources */,
+				1D7061D62B55E5600098AB76 /* Medication.swift in Sources */,
+				1DCAFC262B604D6C000A99BD /* ExportDataView.swift in Sources */,
 				1D7061AA2B55E18E0098AB76 /* ContentView.swift in Sources */,
+				1D7061D82B55E6B40098AB76 /* MedicationManagementView.swift in Sources */,
+				1DCAFC1C2B5B3A45000A99BD /* SimpleEntry.swift in Sources */,
+				1DCAFC202B5B3AC1000A99BD /* SimpleWidgetEntryView.swift in Sources */,
+				1DCAFC232B5C9ED1000A99BD /* ChartWidgetEntryView.swift in Sources */,
+				1D7061E42B57115F0098AB76 /* ImportHeadachesFromCalendarView.swift in Sources */,
+				1D7061D42B55E4D00098AB76 /* HeadacheEvent.swift in Sources */,
+				1D7061E62B57132D0098AB76 /* EventKitEventImporter.swift in Sources */,
+				1D7061DF2B56C58A0098AB76 /* AddAnalgesicView.swift in Sources */,
 				1D7061A82B55E18E0098AB76 /* NeuratrackApp.swift in Sources */,
+				1D7061DD2B56C1200098AB76 /* AddHeadacheEventView.swift in Sources */,
+				1D7061DA2B55F9F90098AB76 /* AddMedicationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +559,7 @@
 				DEVELOPMENT_TEAM = GPPDD5JN67;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Neuratrack/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -435,7 +570,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Kyle-Galloway.Neuratrack";
+				PRODUCT_BUNDLE_IDENTIFIER = "Kyle-Galloway.NeuratrackV2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -454,6 +589,7 @@
 				DEVELOPMENT_TEAM = GPPDD5JN67;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Neuratrack/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -464,7 +600,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Kyle-Galloway.Neuratrack";
+				PRODUCT_BUNDLE_IDENTIFIER = "Kyle-Galloway.NeuratrackV2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

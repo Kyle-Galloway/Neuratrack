@@ -6,3 +6,12 @@
 //
 
 import Foundation
+import WidgetKit
+
+struct SimpleEntry: TimelineEntry {
+    let date: Date
+    let year: Int
+    let weekAvg: Int
+    let monthAvg: Int
+    let total: Int
+}

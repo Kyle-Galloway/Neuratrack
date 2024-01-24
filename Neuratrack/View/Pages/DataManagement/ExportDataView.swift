@@ -11,9 +11,10 @@ struct ExportDataView: View {
     var body: some View {
         NavigationStack
         {
-            Text("Export view").navigationTitle("Export").navigationBarTitleDisplayMode(.inline)
-            Button("Load Data"){}
-            Button("Export Data"){}.buttonBorderShape(.capsule).background(.blue).foregroundColor(.white).clipShape(.capsule)
+            List{
+                Button("Load Data"){}.navigationTitle("Export").navigationBarTitleDisplayMode(.inline)
+                Button("Export Data"){}//.buttonBorderShape(.capsule).background(.blue).foregroundColor(.white).clipShape(.capsule)
+            }
         }
     }
 }
