@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AnalgesicListViewItem: View {
-    @State var analgesic: Medication
+    @State var analgesic: AnalgesicMedication
     var body: some View {
         HStack{
             Text("\(analgesic.name)")
@@ -19,6 +19,12 @@ struct AnalgesicListViewItem: View {
 }
 
 #Preview {
-    
-    AnalgesicListViewItem(analgesic: Medication(name: "Test Med", dosage: "Test Dose", type: .Analgesic, isActivePrescription: false, prescriptionStarted: nil, prescriptionStopped: nil, timeTaken: Date()))
+    do
+    {
+        return AnalgesicListViewItem(analgesic: try AnalgesicMedication(name: "Test Med", dosage: "Test Dose", type: .Analgesic, isActivePrescription: false, prescriptionStarted: nil, prescriptionStopped: nil, timeTaken: Date()))
+    }
+    catch
+    {
+        fatalError("Failed to create data for preview")
+    }
 }

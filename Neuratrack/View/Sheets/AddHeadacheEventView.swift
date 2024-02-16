@@ -6,16 +6,22 @@
 //
 
 import SwiftUI
-
+import SwiftData
 struct AddHeadacheEventView: View {
     
     @Environment(\.dismiss) var dismissSheet
+    @Environment(\.modelContext) var modelContext
     
     @State var isAddAnalgesiaSheetPresented: Bool = false
     
     @State var eventNotes: String = ""
     
+    @State var analgesics: [AnalgesicMedication] = []
+    
     @State var headacheTime: Date = Date()
+    
+    @State var newEvent: HeadacheEvent = HeadacheEvent(date: Date(), analgesiaTaken: false, note: "")
+    //@State var newEvent: HeadacheEvent = HeadacheEvent(date: Date(), analgesiaTaken: false, analgesics: [], note: "")
     var body: some View {
         NavigationStack
         {
@@ -35,14 +41,28 @@ struct AddHeadacheEventView: View {
                 {
                     TextEditor(text: $eventNotes)
                 } header:{Text("Notes")}
-
-                Button("Add Headache")
-                {
-                    dismissSheet()
-                }
                 
             }.navigationTitle("Add Headache").sheet(isPresented: $isAddAnalgesiaSheetPresented) {
-                AddAnalgesicView()
+                AddAnalgesicView(parentHeadacheEvent: newEvent)
+            }.toolbar
+            {
+                ToolbarItem(placement: .cancellationAction)
+                {
+                    Button("Cancel")
+                    {
+                        dismissSheet()
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction)
+                {
+                    Button("Add")
+                    {
+                        let newEvent = HeadacheEvent(date: headacheTime, analgesiaTaken: analgesics.count > 0, note: eventNotes)
+                        //let newEvent = HeadacheEvent(date: headacheTime, analgesiaTaken: analgesics.count > 0, analgesics: analgesics, note: eventNotes)
+                        modelContext.insert(newEvent)
+                        dismissSheet()
+                    }
+                }
             }
         }
     }

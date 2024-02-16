@@ -7,36 +7,24 @@
 
 import SwiftUI
 import EventKitUI
+import SwiftData
 
 struct HeadachesLoggerView: View {
-    var headacheEvents: [HeadacheEvent] //= [HeadacheEvent(date: Date(), analgesiaTaken: false, analgesics: nil, note: nil)] //= ["Headache"] // TODO: change type to array of headache events
+    @Environment(\.modelContext) var modelContext
+    @Query(sort: \HeadacheEvent.date) var headacheEvents: [HeadacheEvent] //= [HeadacheEvent(date: Date(), analgesiaTaken: false, analgesics: nil, note: nil)] //= ["Headache"] // TODO: change type to array of headache events
     
-    var testHeadacheEventList: [HeadacheEvent] //= [HeadacheEvent](repeating: HeadacheEvent(date: Date(), analgesiaTaken: false, analgesics: nil, note: nil), count: 100)
+    //var testHeadacheEventList: [HeadacheEvent] //= [HeadacheEvent](repeating: HeadacheEvent(date: Date(), analgesiaTaken: false, analgesics: nil, note: nil), count: 100)
     
     @State var presentAddHeadacheSheet: Bool = false
     @State var presentEditHeadacheSheet: Bool = false
     
-    var yearsInData: [Int]
-    var testData: [HeadacheEvent]
-    var calendar: Calendar
+    @State var yearsInData: [Int] = []
+    var calendar: Calendar = Calendar.current
     
-    init(headacheEvents: [HeadacheEvent], testHeadacheEventList: [HeadacheEvent], presentAddHeadacheSheet: Bool) {
-        self.headacheEvents = headacheEvents
-        self.testHeadacheEventList = testHeadacheEventList
-        //self.presentAddHeadacheSheet = presentAddHeadacheSheet
+    init()
+    {
         self.calendar = Calendar.current
-        self.yearsInData = Array(Set(headacheEvents.map{Calendar.current.component(.year, from: $0.date)})).sorted().reversed()
-        print(yearsInData)
-        do
-        {
-            self.testData = [HeadacheEvent(date: try Date("2021-01-01T12:30:00Z",strategy: .iso8601), analgesiaTaken: false, analgesics: nil, note: nil),HeadacheEvent(date: try Date("2022-02-02T12:40:00Z",strategy:.iso8601), analgesiaTaken: false, analgesics: nil, note: nil),HeadacheEvent(date: try Date("2022-02-03T12:40:00Z",strategy:.iso8601), analgesiaTaken: false, analgesics: nil, note: nil)]
-            
-        }catch
-        {
-            print("Error generating test data")
-            self.testData = []
-        }
-        
+
     }
     
     var body: some View {
@@ -53,7 +41,8 @@ struct HeadachesLoggerView: View {
                         {
                             ForEach(disclouseGroupContent,id:\.self)
                             {contentEntry in
-                                
+                                HeadacheEventListViewItem(entry: contentEntry)
+                                /*
                                 HStack
                                 {
                                     Text(contentEntry.date.formatted())
@@ -88,16 +77,17 @@ struct HeadachesLoggerView: View {
                                     Button(role:.destructive)
                                     {
                                         print("Deleting Event")
+                                        modelContext.delete(contentEntry)
                                     } label: {
                                         Label("Delete",systemImage: "trash")
                                     }
-                                }
+                                }*/
                             }
                         }
                     }
                 }
                 
-                
+                /*
                 ForEach(testHeadacheEventList,id:\.self)
                 {event in
                     HStack
@@ -138,9 +128,10 @@ struct HeadachesLoggerView: View {
                             Label("Delete",systemImage: "trash")
                         }
                     }
-                }
+                }*/
                 
-            }.navigationTitle("Headache Logger").toolbar
+            }.navigationTitle("Headache Logger")
+            .toolbar
             {
                 ToolbarItem(placement: .topBarTrailing)
                 {
@@ -150,15 +141,49 @@ struct HeadachesLoggerView: View {
                         print("Show add headache screen")
                     }
                 }
-            }.navigationBarTitleDisplayMode(.inline).listStyle(.insetGrouped)
-                .sheet(isPresented: $presentAddHeadacheSheet){
-                    AddHeadacheEventView()
+            }.navigationBarTitleDisplayMode(.inline)
+            .listStyle(.insetGrouped)
+            .sheet(isPresented: $presentAddHeadacheSheet)
+            {
+                AddHeadacheEventView()
+            }
+        }.onAppear
+            {
+                print("HeadachesLoggerView Appeared")
+                self.yearsInData = headacheEvents.yearsInArray()
+                print("*** add years to array ***")
+            }
+            .onChange(of: headacheEvents)
+            {
+                print("Headache Events Array Changed")
+                self.yearsInData = headacheEvents.yearsInArray()
+            }.overlay{
+                if headacheEvents.isEmpty
+                {
+                    VStack{
+                        Image(systemName: "exclamationmark.arrow.triangle.2.circlepath").dynamicTypeSize(.accessibility5)
+                        Text("No Data")}
                 }
-        }
+            }
     }
 }
 
 #Preview {
     
-    HeadachesLoggerView(headacheEvents: [HeadacheEvent(date: Date(), analgesiaTaken: false, analgesics: nil, note: nil)], testHeadacheEventList: [HeadacheEvent](repeating: HeadacheEvent(date: Date(), analgesiaTaken: false, analgesics: nil, note: nil), count: 100), presentAddHeadacheSheet: false)
+    
+    do
+    {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: HeadacheEvent.self,configurations: config)
+        
+        let example = HeadacheEvent(date: Date(), analgesiaTaken: true, note: "Test Data")
+        //let example = HeadacheEvent(date: Date(), analgesiaTaken: true, analgesics: [Medication(name: "Test Medi", dosage: "Test Dose", type: MedicationType.Analgesic, isActivePrescription: false, prescriptionStarted: nil, prescriptionStopped: nil, timeTaken: Date())], note: "Test Data")
+        return HeadachesLoggerView().modelContainer(container)
+        
+    }catch
+    {
+        fatalError("Failed to create model container for preview")
+    }
+    
+    //HeadachesLoggerView(headacheEvents: [HeadacheEvent(date: Date(), analgesiaTaken: false, analgesics: nil, note: nil)], testHeadacheEventList: [HeadacheEvent](repeating: HeadacheEvent(date: Date(), analgesiaTaken: false, analgesics: nil, note: nil), count: 100), presentAddHeadacheSheet: false)
 }

@@ -11,9 +11,10 @@ import SwiftData
 struct AddAnalgesicView: View {
     
     @Environment(\.dismiss) var dismissSheet
-    @Query var medications: [Medication]
-    @State var analgesiaSelection: Medication? = nil
+    @Query var medications: [AnalgesicMedication]
+    @State var analgesiaSelection: AnalgesicMedication? = nil
     @State var timeAnalgesicTaken: Date = Date()
+    @State var parentHeadacheEvent: HeadacheEvent
     var body: some View {
         NavigationStack
         {
@@ -25,16 +26,32 @@ struct AddAnalgesicView: View {
                         Text(med.name)}
                 }
                 DatePicker("Time Taken", selection: $timeAnalgesicTaken)
-                Button("Add")
+                
+            }.navigationTitle("Add Analgesic").toolbar
+            {
+                ToolbarItem(placement: .cancellationAction)
                 {
-                    print("Save to headache event")
-                    dismissSheet()
+                    Button("Cancel")
+                    {
+                        dismissSheet()
+                    }
                 }
-            }.navigationTitle("Add Analgesic")
+                ToolbarItem(placement: .confirmationAction)
+                {
+                    Button("Add")
+                    {
+                        print("Save to headache event")
+                        //parentHeadacheEvent.analgesics.append(Medication(name: analgesiaSelection?.name ?? "Error", dosage: analgesiaSelection?.dosage ?? "Error", type: .Analgesic, isActivePrescription: false, prescriptionStarted: nil, prescriptionStopped: nil, timeTaken: timeAnalgesicTaken))
+                        dismissSheet()
+                    }
+                }
+            }
         }
     }
 }
 
 #Preview {
-    AddAnalgesicView()
+    let testData = HeadacheEvent(date: Date(), analgesiaTaken: false, note: "")
+    //let testData = HeadacheEvent(date: Date(), analgesiaTaken: false, analgesics: [], note: "")
+    return AddAnalgesicView(parentHeadacheEvent: testData)
 }

@@ -1,94 +1,22 @@
 //
-//  HeadacheEvent.swift
+//  TextWidgetEntry.swift
 //  Neuratrack
 //
-//  Created by Kyle Galloway on 15/01/2024.
+//  Created by Kyle Galloway on 19/01/2024.
 //
 
 import Foundation
-import SwiftData
+import WidgetKit
 
-@Model //TODO: Add codable conformance for data export
-class HeadacheEvent: Identifiable, Codable, CustomStringConvertible, NSCopying
-{
-    func copy(with zone: NSZone? = nil) -> Any {
-        let copy = HeadacheEvent(date: date, analgesiaTaken: analgesiaTaken, analgesics: analgesics, note: note)
-        return copy
-    }
-    
-    
-    var id = UUID()
-    var date: Date
-    var analgesiaTaken: Bool
-    var analgesics: [AnalgesicMedication]
-    var note: String = ""
-    
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(UUID.self, forKey: .id)
-        self.date = try container.decode(Date.self, forKey: .date)
-        self.analgesiaTaken = try container.decode(Bool.self, forKey: .analgesiaTaken)
-        self.analgesics = try container.decode([AnalgesicMedication].self, forKey: .analgesics)
-        self.note = try container.decode(String.self, forKey: .note)
-    }
-    
-    enum CodingKeys: CodingKey {
-        case id
-        case date
-        case analgesiaTaken
-        case analgesics
-        case note
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(self.id, forKey: .id)
-        try container.encode(self.date, forKey: .date)
-        try container.encode(self.analgesiaTaken, forKey: .analgesiaTaken)
-        try container.encode(self.analgesics, forKey: .analgesics)
-        try container.encode(self.note, forKey: .note)
-    }
-    
-    init(date: Date = Date(), analgesiaTaken: Bool = false, analgesics: [AnalgesicMedication] = [], note: String = "") {
-        self.date = date
-        self.analgesiaTaken = analgesiaTaken
-        self.analgesics = analgesics
-        self.note = note
-    }
+struct TextWidgetEntry: TimelineEntry {
+    let date: Date // Required To Conform To TimelineEntry For WidgetKit
+    let year: Int
+    let events: [HeadacheEvent]
     
     /*
-    init(date: Date = Date(), analgesiaTaken: Bool = false, note: String = "") {
-        self.date = date
-        self.analgesiaTaken = analgesiaTaken
-        self.note = note
-        self.repr = "\(date), note: \(note)"
-    }
-    */
-}
-
-extension HeadacheEvent
-{
-    var description: String {return "\(date), Analgesics: \(analgesics) note:\(note)"}
-    
-}
-
-
-
-extension Array where Element == HeadacheEvent
-{
-    
-    
-    func yearsInArray() -> [Int]
-    {
-        let years: [Int] = map{Calendar.current.component(.year, from: $0.date)}
-        let setOfYears: [Int] = Array<Int>(Set(years))
-        return setOfYears.sorted().reversed()
-    }
-    
     func mostConsecutiveEvents() -> Int
     {
-        let dates = map { $0.date }
+        let dates = events.map { $0.date }
         
         var consecutiveCounter: Int = 0
         var maxConsecutive: Int = 1
@@ -100,7 +28,7 @@ extension Array where Element == HeadacheEvent
             if abs(diff.day!) < 2
             {
                 consecutiveCounter += 1
-                maxConsecutive = Swift.max(maxConsecutive,consecutiveCounter)
+                maxConsecutive = max(maxConsecutive,consecutiveCounter)
             }else
             {
                 
@@ -111,12 +39,12 @@ extension Array where Element == HeadacheEvent
         return maxConsecutive
     }
     
-    func mostDaysBetweenEvents(year:Int) throws -> Int
+    func mostDaysBetweenEvents() throws -> Int
     {
-        return try daysBetweenEvents(year:year).max()!
+        return try daysBetweenEvents().max()!
     }
     
-    func daysBetweenEvents(year: Int) throws -> [Int]
+    func daysBetweenEvents() throws -> [Int]
     {
         
         // Does not account for daylight savings i.e. BST Starts adding 1 hour causing 23 hour day, BST Ends Causing 25 hour day effecting the day component of date components causing calculation to be off by one when date range is over these periods
@@ -124,7 +52,7 @@ extension Array where Element == HeadacheEvent
         let startOfYear = try Date("\(year)-01-01T00:00:00Z",strategy: .iso8601)
         var daysBetween = [Int]()
         
-        let dates = map { $0.date }
+        let dates = events.map { $0.date }
         
         //daysBetween.append(Calendar.current.dateComponents([.day], from: startOfYear, to: dates.first!).day!)
         
@@ -190,14 +118,14 @@ extension Array where Element == HeadacheEvent
     // Returns the average number of events per month, adjusting for non complete years
     func averageEventsPerMonth() -> Double
     {
-        var months: Double  = Calendar.current.component(.year, from: last!.date) < Calendar.current.component(.year, from: Date()) ? 12.0 : Double(Calendar.current.component(.month, from: Date()))
+        var months: Double  = Calendar.current.component(.year, from: events.last!.date) < Calendar.current.component(.year, from: Date()) ? 12.0 : Double(Calendar.current.component(.month, from: Date()))
         return Double(totalEvents())/months
     }
     
     // Returns the average number of events per week, adjusting for non complete years.
     func averageEventsPerWeek() -> Double
     {
-        var weeks: Double = Calendar.current.component(.year, from: last!.date) < Calendar.current.component(.year, from: Date()) ? 52.0 : Double(Calendar.current.component(.weekOfYear, from: Date()))
+        var weeks: Double = Calendar.current.component(.year, from: events.last!.date) < Calendar.current.component(.year, from: Date()) ? 52.0 : Double(Calendar.current.component(.weekOfYear, from: Date()))
         
         return Double(totalEvents())/weeks
     }
@@ -205,6 +133,7 @@ extension Array where Element == HeadacheEvent
     
     func totalEvents() -> Int
     {
-        return count
+        return events.count
     }
+    */
 }

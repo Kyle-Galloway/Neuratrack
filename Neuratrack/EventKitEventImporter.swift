@@ -7,29 +7,30 @@
 
 import Foundation
 import EventKit
+
+
 class EventKitEventImporter: ObservableObject
 {
     
-    var eventStore: EKEventStore?
+    var eventStore: EKEventStore = EKEventStore()
     var headachesCalendarIdentifier: String = "Headache Tracking" // TODO: Make user defined
     var eventIdentifier: String = "Headache"// TODO: Make user defined
-    var startTrackingDate: Date? // TODO: Make user defined
+    var startTrackingDate: Date // TODO: Make user defined
+    
     var foundEvents: [EKEvent] = [EKEvent]()
     var headacheEvents: [HeadacheEvent] = [HeadacheEvent]()
     
-    init() throws
+    init(startTrackingDate: Date, eventID: String, calenderID: String)
     {
         print("Importer Init")
-        do
-        {
-            startTrackingDate = try Date("2018-01-01T00:00:00Z", strategy: .iso8601)
-        }catch
-        {
-            print(error)
-            throw error
-        }
+        print("Provided Date: \(startTrackingDate)")
+        self.startTrackingDate = startTrackingDate
+        self.eventIdentifier = eventID
+        self.headachesCalendarIdentifier = calenderID
+        //startTrackingDate = try Date("2018-01-01T00:00:00Z", strategy: .iso8601)
+        
     }
-    
+    /*
     func loadEvents() -> [EKEvent]
     {
         print("Loading events")
@@ -113,18 +114,38 @@ class EventKitEventImporter: ObservableObject
         return foundEvents
     }
     
+    */
     
-    func loadEventsiOS17() -> [EKEvent]
+    func loadEventsFromCalendar() async throws -> [EKEvent]
     {
         print("Loading events")
+        
+        switch EKEventStore.authorizationStatus(for: .event)
+        {
+        case .denied:
+            print("Permissions Denied")
+            try await eventStore.requestFullAccessToEvents()
+        case.fullAccess:
+            print("Full Access Permisssions")
+        case .notDetermined:
+            print("Permissions Not Determined")
+            try await eventStore.requestFullAccessToEvents()
+        case.restricted:
+            print("Restricted Permissions")
+            try await eventStore.requestFullAccessToEvents()
+        case.writeOnly:
+            print("Write Only Permissions")
+            try await eventStore.requestFullAccessToEvents()
+        }
         
         
         if EKEventStore.authorizationStatus(for: .event) == .fullAccess
         {
+            print("Calendar Access Granted")
             var foundEvents: [EKEvent] = []
             var filteredEvents: [EKEvent] = []
             let currentCalendar = Calendar.current
-            let loggingDateRange: DateComponents = currentCalendar.dateComponents([Calendar.Component.day,Calendar.Component.month,Calendar.Component.year], from: startTrackingDate!, to: Date())
+            let loggingDateRange: DateComponents = currentCalendar.dateComponents([Calendar.Component.day,Calendar.Component.month,Calendar.Component.year], from: startTrackingDate, to: Date())
             print("Years To Process: \(loggingDateRange.year!)")
             let ekStore = EKEventStore()
             print("Auth")
@@ -142,9 +163,9 @@ class EventKitEventImporter: ObservableObject
                 while rangeCounter > 0
                 {
                     print("pass: \(pass)")
-                    let endDate = currentCalendar.date(byAdding: .year, value: 4, to: startDateTracker!)
+                    let endDate = currentCalendar.date(byAdding: .year, value: 4, to: startDateTracker)!
                     
-                    let predicate = ekStore.predicateForEvents(withStart: startDateTracker!, end: endDate!, calendars: calendar)
+                    let predicate = ekStore.predicateForEvents(withStart: startDateTracker, end: endDate, calendars: calendar)
                     print("Pred \(predicate)")
                     let events = ekStore.events(matching: predicate)
                     print("Eve \(events.count)")
@@ -159,7 +180,7 @@ class EventKitEventImporter: ObservableObject
             }else
             {
                 
-                let predicate = ekStore.predicateForEvents(withStart: startTrackingDate!, end: Date(), calendars: calendar)
+                let predicate = ekStore.predicateForEvents(withStart: startTrackingDate, end: Date(), calendars: calendar)
                 print("Pred \(predicate)")
                 let foundEvents = ekStore.events(matching: predicate)
                 print("Eve \(foundEvents.count)")
@@ -182,7 +203,8 @@ class EventKitEventImporter: ObservableObject
             print(sortedEvents.first)
             return sortedEvents
         }
-        return []
+        print("Failed Due To Calendar Permissions")
+        throw EventKitImporterErrors.FailedToAccessCalendar
     }
     
     
@@ -190,6 +212,7 @@ class EventKitEventImporter: ObservableObject
     
     func convertEventKitEventsToHeadacheEvents(foundEventsIn: [EKEvent]) -> [HeadacheEvent]
     {
+        print("Converting events")
         var convertedEvents: [HeadacheEvent] = [HeadacheEvent]()
         print(foundEventsIn.first)
         for ekEvent in foundEventsIn
@@ -197,21 +220,29 @@ class EventKitEventImporter: ObservableObject
             
             let eventDate = ekEvent.startDate!
             let analgesiaTaken = (ekEvent.notes?.count ?? 0) > 0
-            var analgesics: [Medication] = [Medication]()
+            var analgesics: [AnalgesicMedication] = [AnalgesicMedication]()
             var note = ekEvent.notes
             var splitNotes = ekEvent.notes?.split(whereSeparator: \.isNewline)
             
             if analgesiaTaken
             {
+                
                 var i = 1
                 for note in splitNotes!
                 {
-                    analgesics.append(Medication(name: "Unknown \(i)", dosage: "Unknown", type: .Analgesic, isActivePrescription: false, prescriptionStarted: nil, prescriptionStopped: nil, timeTaken: nil))
+                    do
+                    {
+                        analgesics.append(try AnalgesicMedication(name: "Unknown \(i)", dosage: "Unknown", type: .Analgesic, isActivePrescription: false, prescriptionStarted: nil, prescriptionStopped: nil, timeTaken: nil))
+                    }catch
+                    {
+                        print("failed to create analgesic entry on event kit import")
+                    }
                     i += 1
                 }
             }
-            
-            convertedEvents.append(HeadacheEvent(date: eventDate, analgesiaTaken: analgesiaTaken, analgesics: analgesics,note: note))
+            //convertedEvents.append(HeadacheEvent(date: eventDate, analgesiaTaken: analgesiaTaken,note: note ?? ""))
+            convertedEvents.append(HeadacheEvent(date: eventDate, analgesiaTaken: analgesiaTaken, analgesics: [AnalgesicMedication](), note: note ?? ""))
+            //convertedEvents.append(HeadacheEvent(date: eventDate, analgesiaTaken: analgesiaTaken, analgesics: analgesics,note: note ?? ""))
         }
         return convertedEvents
     }

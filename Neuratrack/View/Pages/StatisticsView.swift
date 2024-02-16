@@ -6,19 +6,22 @@
 //
 
 import SwiftUI
-
+import SwiftData
 struct StatisticsView: View {
     
     var viewTypes =  ["Text","Chart"]
     @State var viewSelection: String = "Text"
-    
+    @Query var headaches: [HeadacheEvent]
+    @State var years: [Int] = [Int]()
     var body: some View {
         
         
         NavigationStack
         {
-            VStack{
-                Text("Statistics View: \(viewSelection)").navigationTitle("Statistics").navigationBarTitleDisplayMode(.inline)
+            
+            HStack
+            {
+                Text("View").navigationTitle("Statistics").navigationBarTitleDisplayMode(.inline)
                 
                 Picker("View",selection: $viewSelection)
                 {
@@ -26,7 +29,9 @@ struct StatisticsView: View {
                     {viewType in
                         Text("\(viewType)")
                     }
-                }.pickerStyle(.segmented).padding()
+                }.pickerStyle(.segmented)
+            }.padding()
+            ScrollView{
                 
                 if viewSelection == "Chart"
                 {
@@ -35,10 +40,20 @@ struct StatisticsView: View {
                 }
                 else
                 {
+                    
+                    ForEach($years,id:\.self)
+                    {year in
+                        Text(String(year.wrappedValue))
+                        TextWidgetEntryView(entry: TextWidgetEntry(date: Date(), year: year.wrappedValue, events: headaches.filter{Calendar.current.component(.year, from: $0.date) == year.wrappedValue}))
+                    }
                     SimpleWidgetEntryView(entry: SimpleEntry(date: Date(), year: 2024, weekAvg: 1, monthAvg: 4, total: 52)).background(.gray.gradient).clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous)).padding()
                 }
                 
             }
+        }.onAppear
+        {
+            print("StatisticsView Appeared")
+            years = headaches.yearsInArray()
         }
     }
 }
