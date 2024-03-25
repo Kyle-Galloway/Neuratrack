@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SwiftData
-struct AddHeadacheEventView: View {
+struct _AddHeadacheEventView: View {
     
     @Environment(\.dismiss) var dismissSheet
     @Environment(\.modelContext) var modelContext

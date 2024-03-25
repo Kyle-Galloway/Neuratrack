@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AnalgesicListViewItem: View {
+struct _AnalgesicListViewItem: View {
     @State var analgesic: AnalgesicMedication
     var body: some View {
         HStack{

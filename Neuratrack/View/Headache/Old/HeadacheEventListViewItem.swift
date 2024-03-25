@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SwiftData
-struct HeadacheEventListViewItem: View {
+struct _HeadacheEventListViewItem: View {
     
     @Environment(\.modelContext) var modelContext
     

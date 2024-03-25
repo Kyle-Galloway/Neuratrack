@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct AddAnalgesicView: View {
+struct _AddAnalgesicView: View {
     
     @Environment(\.dismiss) var dismissSheet
     @Query var medications: [AnalgesicMedication]

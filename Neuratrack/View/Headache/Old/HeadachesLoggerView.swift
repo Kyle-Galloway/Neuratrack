@@ -9,7 +9,7 @@ import SwiftUI
 import EventKitUI
 import SwiftData
 
-struct HeadachesLoggerView: View {
+struct _HeadachesLoggerView: View {
     @Environment(\.modelContext) var modelContext
     @Query(sort: \HeadacheEvent.date) var headacheEvents: [HeadacheEvent] //= [HeadacheEvent(date: Date(), analgesiaTaken: false, analgesics: nil, note: nil)] //= ["Headache"] // TODO: change type to array of headache events
     

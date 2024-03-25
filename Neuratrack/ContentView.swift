@@ -64,7 +64,7 @@ struct ContentView: View {
     }
     catch
     {
-        fatalError("Failed to created model container for preview")
+        fatalError("Failed to create model container for preview")
     }
     
     

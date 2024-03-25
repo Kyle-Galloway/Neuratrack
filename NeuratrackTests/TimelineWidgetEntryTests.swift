@@ -59,7 +59,7 @@ final class TimelineWidgetEntryTests: XCTestCase {
         let expectedResult: Int = 4
         
         // When (Act)
-        let result = timelineEntry.mostConsecutiveEvents()
+        let result = timelineEntry.events.mostConsecutiveEvents()
         // Then (Assert)
         
         XCTAssertEqual(result, expectedResult)
@@ -71,7 +71,7 @@ final class TimelineWidgetEntryTests: XCTestCase {
         let expectedResult: Int = 9
         
         // When (Act)
-        let result = try timelineEntry.mostDaysBetweenEvents()
+        let result = try timelineEntry.events.mostDaysBetweenEvents(year:testYear)
         // Then (Assert)
         
         XCTAssertEqual(result, expectedResult)
@@ -86,7 +86,7 @@ final class TimelineWidgetEntryTests: XCTestCase {
         //let expectedResult: [Int] = [0,0,7,0,9,2,0,0,0]
         let expectedResult: [Int] = daysBetweenEventsDataSet2
         // When (Act)
-        let result = try timelineEntry.daysBetweenEvents()
+        let result = try timelineEntry.events.daysBetweenEvents(year:testYear)
         // Then (Assert)
         
         XCTAssertEqual(result, expectedResult)
@@ -99,7 +99,7 @@ final class TimelineWidgetEntryTests: XCTestCase {
         let expectedResult: Double = 10.0/12.0
         
         // When (Act)
-        let result = timelineEntry.averageEventsPerMonth()
+        let result = timelineEntry.events.averageEventsPerMonth()
         // Then (Assert)
         
         XCTAssertEqual(result, expectedResult)
@@ -112,7 +112,7 @@ final class TimelineWidgetEntryTests: XCTestCase {
         let expectedResult: Double = 10.0/52.0
         
         // When (Act)
-        let result = timelineEntry.averageEventsPerWeek()
+        let result = timelineEntry.events.averageEventsPerWeek()
         // Then (Assert)
         
         XCTAssertEqual(result, expectedResult)
@@ -125,7 +125,7 @@ final class TimelineWidgetEntryTests: XCTestCase {
         let expectedResult: Int = 10
         
         // When (Act)
-        let result = timelineEntry.totalEvents()
+        let result = timelineEntry.events.totalEvents()
         // Then (Assert)
         
         XCTAssertEqual(result, expectedResult)

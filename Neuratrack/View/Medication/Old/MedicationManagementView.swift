@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct MedicationManagementView: View
+struct _MedicationManagementView: View
 {
     //@Query var medications: [Medication]
     @Query var analgesics: [AnalgesicMedication]

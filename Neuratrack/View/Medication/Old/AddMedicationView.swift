@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddMedicationView: View {
+struct _AddMedicationView: View {
     
     @State var medicationName: String = ""
     @State var medicationDosage: String = ""

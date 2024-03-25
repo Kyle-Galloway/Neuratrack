@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct EditHeadacheEventView: View {
+struct _EditHeadacheEventView: View {
     
     @Environment(\.dismiss) var dismissSheet
     

@@ -204,7 +204,7 @@ class EventKitEventImporter: ObservableObject
             return sortedEvents
         }
         print("Failed Due To Calendar Permissions")
-        throw EventKitImporterErrors.FailedToAccessCalendar
+        throw NeuratrackError.EventKitImporterErrors.FailedToAccessCalendar
     }
     
     

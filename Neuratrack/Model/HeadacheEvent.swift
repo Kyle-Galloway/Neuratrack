@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import OrderedCollections
 
 @Model //TODO: Add codable conformance for data export
 class HeadacheEvent: Identifiable, Codable, CustomStringConvertible, NSCopying
@@ -84,6 +85,29 @@ extension Array where Element == HeadacheEvent
         let years: [Int] = map{Calendar.current.component(.year, from: $0.date)}
         let setOfYears: [Int] = Array<Int>(Set(years))
         return setOfYears.sorted().reversed()
+    }
+    
+    func getEventCountsByWeekOfYear_Filter() -> OrderedDictionary<Int, Int>
+    {
+        let weeks = 1...53
+        var counts = OrderedDictionary<Int,Int>()
+        for week in weeks
+        {
+            counts[week] = filter{Calendar.current.component(.weekOfYear, from: $0.date) == week}.count
+        }
+        counts.sort()
+        return counts
+    }
+    
+    func getEventCountsByWeekOfYear_Reduce() -> OrderedDictionary<Int,Int>
+    {
+        
+        var data: OrderedDictionary<Int, Int> = reduce(into: [:]){counts, event in
+            
+            let week = Calendar.current.component(.weekOfYear, from: event.date)
+            counts[week, default: 0] += 1}
+        data.sort()
+        return data
     }
     
     func mostConsecutiveEvents() -> Int
